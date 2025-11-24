@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project FedoraX — A Fedora-based Linux distribution</title>
+  <meta name="description" content="FedoraX — a lightweight, secure Fedora-based Linux distribution." />
+  <style>
+    :root{--accent:#0069a8;--muted:#6b7280;--bg:#0f1724;--card:#0b1220;color-scheme: dark}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.4;margin:0;background:linear-gradient(180deg,#071427 0%, #081827 60%);color:#e6eef6;padding:24px}
+    .container{max-width:960px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0b7285);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;box-shadow:0 6px 20px rgba(2,6,23,.6)}
+    h1{font-size:clamp(1.4rem,3vw,2rem);margin:0}
+    p.lead{color:var(--muted);margin:8px 0 0}
+    nav a{color:#cfefff;text-decoration:none;margin-left:12px}
+
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:28px;align-items:start}
+    .card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .download{display:flex;flex-direction:column;gap:8px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#0793c7);color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cde9ff}
+
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .feature{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));}
+    .feature h3{margin:0 0 6px}
+    .cli{background:#071422;padding:12px;border-radius:8px;font-family:monospace;color:#bfe7ff}
+
+    footer{margin-top:32px;color:var(--muted);font-size:0.9rem;text-align:center}
+
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr}
+      nav{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FX</div>
+        <div>
+          <h1>FedoraX</h1>
+          <p class="lead">A lightweight, secure Fedora-based Linux distribution for modern desktops and servers.</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a href="#docs">Docs</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card">
+          <h2>Fast. Modern. Secure.</h2>
+          <p class="lead">FedoraX combines the stability of Fedora with curated packages and sensible defaults for privacy, performance and developer tooling.</p>
+
+          <div id="features" class="features">
+            <div class="feature">
+              <h3>GNOME & Wayland</h3>
+              <p class="muted">Polished GNOME session on Wayland with performance tweaks.</p>
+            </div>
+            <div class="feature">
+              <h3>DNF + COPR</h3>
+              <p class="muted">Easy access to upstream Fedora packages, Copr repos and 3rd-party builds.</p>
+            </div>
+            <div class="feature">
+              <h3>Developer Friendly</h3>
+              <p class="muted">Ship with essential languages, Docker/Podman, and a developer toolset.</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:14px">Quick start</h3>
+          <div class="cli">
+            <div><strong>Verify image</strong></div>
+            <code>sha256sum -c FedoraX-40-x86_64.iso.sha256</code>
+            <div style="height:8px"></div>
+            <div><strong>Create USB (example)</strong></div>
+            <code>sudo dd if=FedoraX-40-x86_64.iso of=/dev/sdX bs=4M status=progress && sync</code>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3 id="download">Download</h3>
+          <p class="lead">Pick an image (stable, live, server)</p>
+          <div class="download">
+            <a class="btn btn-primary" href="#">Download Live ISO (x86_64)</a>
+            <a class="btn btn-ghost" href="#">Download Server ISO</a>
+            <a class="btn btn-ghost" href="#">Checksum & Signatures</a>
+          </div>
+
+          <h4 style="margin-top:12px">Install via network</h4>
+          <p class="muted">Install packages after first boot with dnf:</p>
+          <pre class="cli">sudo dnf update -y
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install git podman neovim -y</pre>
+        </aside>
+      </section>
+
+      <section id="install" style="margin-top:18px">
+        <div class="card">
+          <h2>Installation notes</h2>
+          <ol>
+            <li>Create bootable USB (dd, Fedora Media Writer, balenaEtcher).</li>
+            <li>Boot from USB, choose "Start FedoraX Live" to test without installing.</li>
+            <li>Run the installer (Anaconda). Pick disk layout, timezone and user.</li>
+            <li>After first boot, enable 3rd-party repos if needed and update DNF.</li>
+          </ol>
+
+          <h3>Enable RPM Fusion (example)</h3>
+          <pre class="cli">sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf update -y</pre>
+
+          <p class="muted">Replace <code>$(rpm -E %fedora)</code> with your Fedora release number (e.g. 40).</p>
+        </div>
+      </section>
+
+      <section id="docs" style="margin-top:18px">
+        <div class="card">
+          <h2>Documentation & Support</h2>
+          <p>Find the full docs, troubleshooting guides and community chat links in the repository.</p>
+
+          <h3>Want this on GitHub Pages?</h3>
+          <p class="muted">Place this file as <code>index.html</code> in the root of your GitHub repo and enable Pages on the main branch (or gh-pages). See the repo README for specific domain or CNAME setup.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© 2025 FedoraX — Built on Fedora. Not affiliated with the Fedora Project.</div>
+      <div style="margin-top:6px;color:var(--muted)">License: MIT — Contributions welcome on GitHub.</div>
+    </footer>
+  </div>
+</body>
+</html>
